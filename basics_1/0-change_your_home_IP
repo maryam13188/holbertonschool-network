@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
-# Configures localhost and facebook.com name resolution
+# This script configures /etc/hosts to resolve localhost to 127.0.0.2 and facebook.com to 8.8.8.8
 
-{
-  echo "127.0.0.2 localhost"
-  echo "8.8.8.8 facebook.com"
-  echo "::1 ip6-localhost ip6-loopback"
-  echo "fe00::0 ip6-localnet"
-  echo "ff00::0 ip6-mcastprefix"
-  echo "ff02::1 ip6-allnodes"
-  echo "ff02::2 ip6-allrouters"
-} > /etc/hosts
+# Remove any existing lines containing localhost or facebook.com
+sudo sed -i '/localhost/d' /etc/hosts
+sudo sed -i '/facebook.com/d' /etc/hosts
+
+# Add the new resolution entries
+echo "127.0.0.2 localhost" | sudo tee -a /etc/hosts > /dev/null
+echo "8.8.8.8 facebook.com" | sudo tee -a /etc/hosts > /dev/null
